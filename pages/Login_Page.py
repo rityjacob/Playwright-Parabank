@@ -9,13 +9,14 @@ class LoginPage :
     def __init__(self, page:Page) -> None:
         self.page = page
         self.username_input = page.locator('input[name=\"username\"]')
-        self.pasword_input=page.locator('input[name=\"password\"]')
-        self.login_button = page.get_by_role('button', name = 'Login')
+        self.password_input=page.locator('input[name=\"password\"]')
+        self.login_button = page.get_by_role('button', name = 'Log In')
 
 
     def LoadPage(self) -> None:
-        self.goto(self.URL)
+        self.page.goto(self.URL)
 
     def Login(self,username : str, password : str) -> None:
         self.username_input.fill(username)
         self.password_input.fill(password)
+        self.login_button.click()
