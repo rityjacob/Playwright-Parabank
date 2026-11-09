@@ -15,6 +15,18 @@ def test_valid_login(page:Page)->None:
     expect(page.locator("#leftPanel")).to_contain_text("Welcome Benet Jibu")
     assert homepage.logout_visible(), "Log Out link must appear after successful login"
 
+    homepage.logout()
+
+def test_invalid_login( page : Page) -> None:
+    loginpage = LoginPage(page)
+    
+    loginpage.LoadPage()
+    
+    loginpage.Login("kunjumon","kj")
+    expect(page.locator("#rightPanel")).to_contain_text("The username and password could not be verified.")
+
+
+
 def test_empty_creds( page : Page) -> None:
     loginpage = LoginPage(page)
     

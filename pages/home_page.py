@@ -18,5 +18,8 @@ class HomePage:
 
     def welcome_text(self):
             self.welcome_text.to_contain_text("Welcome")
+
+    def logout(self):
+         self.logout_link.click()
     
             
