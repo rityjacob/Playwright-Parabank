@@ -7,10 +7,10 @@ def test_valid_login(page:Page)->None:
 
     loginpage = LoginPage(page)
     homepage = HomePage(page)
-
+    
     loginpage.LoadPage()
 
     loginpage.Login('Nunu','Testnunu123@')
 
-    homepage.overview_visible()
+    homepage.goto_overview()
     homepage.logout_visible()
