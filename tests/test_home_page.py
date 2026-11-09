@@ -1,0 +1,16 @@
+from playwright.sync_api import Page,expect
+
+from pages.login_page import LoginPage
+from pages.home_page import HomePage
+
+def test_valid_login(page:Page)->None:
+
+    loginpage = LoginPage(page)
+    homepage = HomePage(page)
+
+    loginpage.LoadPage()
+
+    loginpage.Login('Nunu','Testnunu123@')
+
+    homepage.overview_visible()
+    homepage.logout_visible()
