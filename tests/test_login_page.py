@@ -13,6 +13,8 @@ def test_valid_login(login_page,home_page)->None:
 
     home_page.logout()
 
+
+@pytest.mark.negative
 @pytest.mark.parametrize("user, pwd, msg", [
     ("kunjumon", "kj", "The username and password could not be verified."),
     ("", "", "Please enter a username and password."),

@@ -5,6 +5,8 @@ from playwright.sync_api import Page,expect
 from pages.login_page import LoginPage
 from pages.home_page import HomePage
 
+
+@pytest.mark.smoke
 def test_homePage(login_page,home_page)->None:
 
     login_page.Login('Benet','Testben123@')
