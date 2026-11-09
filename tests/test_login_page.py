@@ -1,36 +1,22 @@
+import pytest
 from playwright.sync_api import Page,expect
 
-from pages.login_page import LoginPage
-from pages.home_page import HomePage
+# from pages.login_page import LoginPage
+# from pages.home_page import HomePage
 
-def test_valid_login(page:Page)->None:
+def test_valid_login(login_page,home_page)->None:
 
-    loginpage = LoginPage(page)
-    homepage = HomePage(page)
+    login_page.Login('Benet','Testben123@')
 
-    loginpage.LoadPage()
+    home_page.expect_welcome_text()
+    expect(home_page.logout_link).to_be_visible()
 
-    loginpage.Login('Nunu','Testnunu123@')
+    home_page.logout()
 
-    expect(page.locator("#leftPanel")).to_contain_text("Welcome Benet Jibu")
-    assert homepage.logout_visible(), "Log Out link must appear after successful login"
-
-    homepage.logout()
-
-def test_invalid_login( page : Page) -> None:
-    loginpage = LoginPage(page)
-    
-    loginpage.LoadPage()
-    
-    loginpage.Login("kunjumon","kj")
-    expect(page.locator("#rightPanel")).to_contain_text("The username and password could not be verified.")
-
-
-
-def test_empty_creds( page : Page) -> None:
-    loginpage = LoginPage(page)
-    
-    loginpage.LoadPage()
-    
-    loginpage.Login("","")
-    expect(page.locator("#rightPanel")).to_contain_text("Please enter a username and password.")
+@pytest.mark.parametrize("user, pwd, msg", [
+    ("kunjumon", "kj", "The username and password could not be verified."),
+    ("", "", "Please enter a username and password."),
+])
+def test_login_errors(login_page, user, pwd, msg) -> None:
+    login_page.Login(user, pwd)
+    expect(login_page.error_message).to_contain_text(msg)

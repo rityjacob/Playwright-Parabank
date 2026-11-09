@@ -11,6 +11,7 @@ class LoginPage :
         self.username_input = page.locator('input[name=\"username\"]')
         self.password_input=page.locator('input[name=\"password\"]')
         self.login_button = page.get_by_role('button', name = 'Log In')
+        self.error_message = page.locator("#rightPanel")
 
 
     def LoadPage(self) -> None:

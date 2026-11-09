@@ -10,14 +10,11 @@ class HomePage:
         self.welcome_text = page.locator("#leftPanel")
 
 
-    def logout_visible(self):
-        return self.logout_link.is_visible()
-
     def goto_overview(self):
         self.overview_link.click()
 
-    def welcome_text(self):
-            self.welcome_text.to_contain_text("Welcome")
+    def expect_welcome_text(self):
+        expect(self.welcome_text).to_contain_text("Welcome")
 
     def logout(self):
          self.logout_link.click()

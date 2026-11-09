@@ -1,17 +1,14 @@
+import pytest
+
 from playwright.sync_api import Page,expect
 
 from pages.login_page import LoginPage
 from pages.home_page import HomePage
 
-def test_homePage(page:Page)->None:
+def test_homePage(login_page,home_page)->None:
 
-    loginpage = LoginPage(page)
-    homepage = HomePage(page)
-    
-    loginpage.LoadPage()
+    login_page.Login('Benet','Testben123@')
 
-    loginpage.Login('Nunu','Testnunu123@')
-
-    homepage.goto_overview()
-    homepage.logout_visible()
-    homepage.logout()
+    home_page.goto_overview()
+    expect(home_page.logout_link).to_be_visible()
+    home_page.logout()
